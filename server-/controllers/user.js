@@ -77,25 +77,48 @@ export const getUserController = async (req, res, next) => {
 };
 
 export const subscribeController = async (req, res, next) => {
-  // try {
-  //   const { id } = req.params;
-  //   const user = await User.findById(id).lean().exec();
-  //   res.status(200);
-  //   res.json({
-  //     status: true,
-  //     message: "User fetched successfully",
-  //     data: user,
-  //   });
-  // } catch (error) {
-  //   res.status(500);
-  //   res.json({
-  //     status: false,
-  //     message: error.message,
-  //   });
-  // }
+  try {
+    // finding the current user and pushing the subscribed user id in the subscribedUsers array
+    await User.findById(req.user.id, {
+      $push: { subscribedUsers: req.params.id },
+    });
+
+    // finding the subscribed user and incrementing the subscribers
+    await User.findByIdAndUpdate(req.params.id, {
+      $inc: { subscribers: 1 },
+    });
+
+    res.status(200);
+    res.json({
+      status: true,
+      messgae: "Subscribed successfully!",
+    });
+  } catch (error) {
+    next(error);
+  }
 };
 
-export const unsubscribeController = async (req, res, next) => {};
+export const unsubscribeController = async (req, res, next) => {
+  try {
+    // finding the current user and pushing the subscribed user id in the subscribedUsers array
+    await User.findById(req.user.id, {
+      $pull: { subscribedUsers: req.params.id },
+    });
+
+    // finding the subscribed user and incrementing the subscribers
+    await User.findByIdAndUpdate(req.params.id, {
+      $inc: { subscribers: -1 },
+    });
+
+    res.status(200);
+    res.json({
+      status: true,
+      messgae: "Unsubscribed successfully!",
+    });
+  } catch (error) {
+    next(error);
+  }
+};
 
 export const likeController = async (req, res, next) => {};
 

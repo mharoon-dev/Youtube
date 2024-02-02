@@ -25,9 +25,13 @@ userRouter.delete("/:id", verifyToken,  deleteUserController);
 userRouter.get("/find/:id", getUserController);
 
 // subscribe a user
+// put api
+// /api/v1/users/sub/:id
 userRouter.put("/sub/:id", verifyToken, subscribeController);
 
 // unsubscribe a user
+// put api
+// /api/v1/users/unsub/:id
 userRouter.put("/unsub/:id", verifyToken,  unsubscribeController);
 
 // like a video
