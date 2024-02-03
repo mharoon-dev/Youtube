@@ -6,10 +6,14 @@ const authRouter = express.Router();
 // create a user
 // post api
 // /api/v1/auth/signup
-authRouter.post("/signup", signUpController )
+authRouter.post("/signup", signUpController);
+
 // signin
-authRouter.post("/login",logInController )
+// post api
+// /api/v1/auth/login
+authRouter.post("/login", logInController);
+
 // google auth
 // authRouter.post("/google", )
 
-export default authRouter
+export default authRouter;

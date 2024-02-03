@@ -16,7 +16,7 @@ dbConnection();
 // apis
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/users", userRouter);
-// app.use("/api/v1/videos", videoRouter);
+app.use("/api/v1/videos", videoRouter);
 // app.use("/api/v1/comments", commentsRouter);
 
 app.use((err, req, res, next) => {

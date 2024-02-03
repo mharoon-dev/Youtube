@@ -19,7 +19,7 @@ userRouter.put("/:id", verifyToken, updateUserController);
 // delete a user
 // delete api
 // /api/v1/users/:id
-userRouter.delete("/:id", verifyToken,  deleteUserController);
+userRouter.delete("/:id", verifyToken, deleteUserController);
 
 // get a user
 userRouter.get("/find/:id", getUserController);
@@ -32,12 +32,12 @@ userRouter.put("/sub/:id", verifyToken, subscribeController);
 // unsubscribe a user
 // put api
 // /api/v1/users/unsub/:id
-userRouter.put("/unsub/:id", verifyToken,  unsubscribeController);
+userRouter.put("/unsub/:id", verifyToken, unsubscribeController);
 
 // like a video
-userRouter.put("/like/:videoId", verifyToken,  likeController);
+userRouter.put("/like/:videoId", verifyToken, likeController);
 
 // dislike a video
-userRouter.put("/dislike/:videoId", verifyToken,  dislikeController);
+userRouter.put("/dislike/:videoId", verifyToken, dislikeController);
 
 export default userRouter;
