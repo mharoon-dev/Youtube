@@ -1,23 +1,37 @@
 import express from "express";
-import dotenv from "dotenv";
-import { dbConnection } from "./utils/config.js";
+import { connectDB } from "./config/default.js";
+import userRouter from "./routes/users.js";
+import commentsRouter from "./routes/Comments.js";
+import videoRouter from "./routes/videos.js";
 import authRouter from "./routes/auth.js";
-import userRouter from "./routes/user.js";
-import videoRouter from "./routes/video.js";
-import commentsRouter from "./routes/comment.js";
 import cookieParser from "cookie-parser";
+import cors from "cors";
+// import {upload} from "./controllers/video.js";
 
 const app = express();
-app.use(express.json());
-app.use(cookieParser());
-dotenv.config();
-dbConnection();
+// app.use(upload.any());
+app.use(express.urlencoded({ extended: true }));
 
-// apis
-app.use("/api/v1/auth", authRouter);
-app.use("/api/v1/users", userRouter);
-app.use("/api/v1/videos", videoRouter);
-// app.use("/api/v1/comments", commentsRouter);
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  })
+);
+
+
+
+app.use(cookieParser());
+app.use(express.json());
+
+app.use("/api/auth", authRouter);
+app.use("/api/users", userRouter);
+app.use("/api/comments", commentsRouter);
+app.use("/api/videos", videoRouter);
+
+app.post("/api/videos/uploads"
+);
+
 
 app.use((err, req, res, next) => {
   const status = err.status || 500;
@@ -29,6 +43,8 @@ app.use((err, req, res, next) => {
   });
 });
 
+connectDB();
+
 app.listen(process.env.PORT, () => {
-  console.log("server is running on port " + process.env.PORT);
+  console.log(`Server is Running at http://localhost:${process.env.PORT}`);
 });

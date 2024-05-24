@@ -1,19 +1,25 @@
 import express from "express";
-import { logInController, signUpController } from "../controllers/auth.js";
+import { googleAuth, isUserLoggedIn, signin, signup } from "../controllers/auth.js";
+import { verifyToken } from "../verifyToken.js";
 
 const authRouter = express.Router();
 
-// create a user
-// post api
-// /api/v1/auth/signup
-authRouter.post("/signup", signUpController);
+// signup
+// http://localhost:7000/api/auth/signup
+// post
+authRouter.post("/signup",signup )
 
 // signin
-// post api
-// /api/v1/auth/login
-authRouter.post("/login", logInController);
+// http://localhost:7000/api/auth/signin
+// post
+authRouter.post("/signin", signin)
 
-// google auth
-// authRouter.post("/google", )
+// isUserLoggedIn
+// http://localhost:7000/api/auth/isuserloggedin
+// get
+authRouter.get("/isuserloggedin",verifyToken, isUserLoggedIn)
+
+// signin with google
+authRouter.post("/signinwithgoogle", googleAuth)
 
 export default authRouter;
