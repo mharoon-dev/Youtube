@@ -160,6 +160,7 @@ export const isUserLoggedIn = async (req, res) => {
       .send(error.message);
   }
 };
+
 export const googleAuth = (req, res) => {
   res.send("googleAuth");
 };
